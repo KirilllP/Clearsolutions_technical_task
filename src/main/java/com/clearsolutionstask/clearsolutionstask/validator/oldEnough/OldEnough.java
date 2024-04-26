@@ -7,14 +7,13 @@ import java.lang.annotation.*;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = AdultValidator.class)
+@Constraint(validatedBy = AgeValidator.class)
 @Documented
 public @interface OldEnough {
 
-    String message() default "You must be older then ${property.minimalAge}";
+    String message() default "you must be older";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 }
-

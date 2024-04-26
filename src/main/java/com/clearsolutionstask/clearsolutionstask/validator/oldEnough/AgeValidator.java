@@ -1,6 +1,7 @@
 package com.clearsolutionstask.clearsolutionstask.validator.oldEnough;
 
 
+import com.clearsolutionstask.clearsolutionstask.exception.customException.AgeRatingException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class AdultValidator implements ConstraintValidator<OldEnough, LocalDate> {
+public class AgeValidator implements ConstraintValidator<OldEnough, LocalDate> {
 
     @Value("${property.minimalAge}")
     int minimalAge;
@@ -19,12 +20,9 @@ public class AdultValidator implements ConstraintValidator<OldEnough, LocalDate>
 
     @Override
     public boolean isValid(LocalDate birthDate, ConstraintValidatorContext context) {
-        if (birthDate == null) {
-            return false;
-        }
         LocalDate now = LocalDate.now();
-        Period period = Period.between(birthDate, now);
-        return period.getYears() >= minimalAge;
+        if (birthDate == null || Period.between(birthDate, now).getYears() >= minimalAge) return true;
+        throw new AgeRatingException("You must be older than " + minimalAge);
     }
 }
 

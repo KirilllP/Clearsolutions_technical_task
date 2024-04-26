@@ -22,9 +22,7 @@ public class PatchUserDto {
     @Email(message = "This is not a valid email format")
     String email;
 
-
     String firstName;
-
 
     String lastName;
 

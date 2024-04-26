@@ -1,12 +1,10 @@
 package com.clearsolutionstask.clearsolutionstask.dto;
 
-import com.clearsolutionstask.clearsolutionstask.validator.oldEnough.OldEnough;
+import com.clearsolutionstask.clearsolutionstask.validator.fromToDates.FromToDates;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,29 +17,18 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
-
-    @Null
-    Integer id;
-
-    @NotNull(message = "Email is NULL")
-    @Email(message = "This is not a valid email format")
-    String email;
-
-    @NotNull(message = "first name is NULL")
-    String firstName;
-
-    @NotNull(message = "last name is NULL")
-    String lastName;
+@FromToDates
+public class DateRangeDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @NotNull(message = "birth date name is NULL")
-    @Past(message = "birth date must be in the past")
-    @OldEnough
-    LocalDate birthDate;
+    @Past(message = "\"From\" must be in the past")
+    LocalDate from;
 
-    String address;
-
-    String phoneNumber;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @NotNull(message = "birth date name is NULL")
+    @Past(message = "\"To\" must be in the past")
+    LocalDate to;
 }
