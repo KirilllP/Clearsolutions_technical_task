@@ -54,7 +54,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({AgeRatingException.class, FromToValidationException.class})
     protected ResponseEntity<Object> badRequest(ConstraintDeclarationException exception, WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(
@@ -65,4 +65,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
 }

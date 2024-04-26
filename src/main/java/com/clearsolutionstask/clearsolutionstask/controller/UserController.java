@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping
 @AllArgsConstructor
-public class UserController {
+public class UserController implements UserApi {
 
     private final UserService userService;
 
@@ -43,8 +43,9 @@ public class UserController {
     }
 
     @PostMapping("/user/range")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public List<UserDto> getUsersInRange(@Valid @RequestBody DateRangeDto dateRangeDto){
         return userService.getUsersInRange(dateRangeDto);
     }
+
 }

@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @Builder
 public class PatchUserDto {
 
-
     @Email(message = "This is not a valid email format")
     String email;
 
@@ -34,4 +33,5 @@ public class PatchUserDto {
     String address;
 
     String phoneNumber;
+
 }

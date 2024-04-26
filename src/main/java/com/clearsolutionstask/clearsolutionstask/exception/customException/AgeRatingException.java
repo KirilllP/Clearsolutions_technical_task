@@ -7,4 +7,5 @@ public class AgeRatingException extends ConstraintDeclarationException {
     public AgeRatingException(String message) {
         super(message);
     }
+
 }

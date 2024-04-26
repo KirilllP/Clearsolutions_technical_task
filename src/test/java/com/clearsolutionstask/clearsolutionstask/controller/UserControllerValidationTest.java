@@ -1,11 +1,10 @@
 package com.clearsolutionstask.clearsolutionstask.controller;
 
-import com.clearsolutionstask.clearsolutionstask.controller.UserController;
 import com.clearsolutionstask.clearsolutionstask.dto.DateRangeDto;
 import com.clearsolutionstask.clearsolutionstask.dto.PatchUserDto;
 import com.clearsolutionstask.clearsolutionstask.dto.UserDto;
 import com.clearsolutionstask.clearsolutionstask.exception.customException.WrongIdException;
-import com.clearsolutionstask.clearsolutionstask.service.UserService;
+import com.clearsolutionstask.clearsolutionstask.service.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-class UserControllerUnitTest {
+class UserControllerValidationTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -39,11 +38,10 @@ class UserControllerUnitTest {
 	public ObjectMapper objectMapper;
 
 	@MockBean
-	private UserService service;
+	private UserServiceImpl service;
 
 	@Test
 	void successfulValidationAndSavingTest() throws Exception {
-
 		UserDto inputUser = UserDto.builder().email("mrsad999@gmail.com").firstName("sadsad").lastName("nothappy").birthDate(LocalDate.of(2000, 4, 25)).build();
 
 		UserDto outputUser = UserDto.builder().id(1).email("mrsad999@gmail.com").firstName("sadsad").lastName("nothappy").birthDate(LocalDate.of(2000, 4, 25)).build();
@@ -53,12 +51,10 @@ class UserControllerUnitTest {
 		mvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(inputUser)))
 				.andExpect(MockMvcResultMatchers.status().isCreated());
-
 	}
 
 	@Test
 	void validationExceptionOnSavingIncorrectDataTest() throws Exception {
-
 		UserDto inputUser = generateUser();
 		inputUser.setEmail("13");
 		mvc.perform(MockMvcRequestBuilders.post("/user/save")
@@ -90,14 +86,12 @@ class UserControllerUnitTest {
 
 	@Test
 	void successfulDeletingTest() throws Exception {
-
 		doNothing().when(service).deleteUser(anyInt());
 		mvc.perform(MockMvcRequestBuilders.delete("/user/delete/1")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
 	void wrongIdPassedInDeletingTest() throws Exception {
-
 		doThrow(WrongIdException.class).when(service).deleteUser(anyInt());
 		mvc.perform(MockMvcRequestBuilders.delete("/user/delete/1")).andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
@@ -183,7 +177,6 @@ class UserControllerUnitTest {
 		DateRangeDto dateRangeDto = DateRangeDto.builder().from(LocalDate.of(2001, 4, 25)).to(LocalDate.of(2000, 4, 25)).build();
 
 		mvc.perform(MockMvcRequestBuilders.post("/user/range").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dateRangeDto))).andExpect(MockMvcResultMatchers.status().isBadRequest());
-
 	}
 
 	@Test
@@ -191,12 +184,11 @@ class UserControllerUnitTest {
 
 		DateRangeDto dateRangeDto = DateRangeDto.builder().from(LocalDate.of(2000, 4, 25)).to(LocalDate.of(2001, 4, 25)).build();
 
-		mvc.perform(MockMvcRequestBuilders.post("/user/range").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dateRangeDto))).andExpect(MockMvcResultMatchers.status().isFound());
-
-
+		mvc.perform(MockMvcRequestBuilders.post("/user/range").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(dateRangeDto))).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	private static UserDto generateUser() {
 		return UserDto.builder().email("mrsad999@gmail.com").firstName("sadsad").lastName("nothappy").birthDate(LocalDate.of(2000, 4, 25)).build();
 	}
+
 }

@@ -15,4 +15,5 @@ public interface UserMapper {
     User toUser(UserDto userDto);
 
     User patchToUser(PatchUserDto patchUserDto);
+
 }
