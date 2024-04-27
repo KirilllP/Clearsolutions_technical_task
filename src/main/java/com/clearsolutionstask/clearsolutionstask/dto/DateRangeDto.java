@@ -24,12 +24,12 @@ public class DateRangeDto {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @NotNull(message = "birth date name is NULL")
     @Past(message = "\"From\" must be in the past")
-    LocalDate from;
+    private LocalDate from;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @NotNull(message = "birth date name is NULL")
     @Past(message = "\"To\" must be in the past")
-    LocalDate to;
+    private LocalDate to;
 
 }

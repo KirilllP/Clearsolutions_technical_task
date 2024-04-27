@@ -19,19 +19,19 @@ import java.time.LocalDate;
 public class PatchUserDto {
 
     @Email(message = "This is not a valid email format")
-    String email;
+    private String email;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @OldEnough
-    LocalDate birthDate;
+    private LocalDate birthDate;
 
-    String address;
+    private String address;
 
-    String phoneNumber;
+    private String phoneNumber;
 
 }

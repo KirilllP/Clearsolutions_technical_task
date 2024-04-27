@@ -16,18 +16,18 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    String email;
+    private String email;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
-    LocalDate birthDate;
+    private LocalDate birthDate;
 
-    String address;
+    private String address;
 
-    String phoneNumber;
+    private String phoneNumber;
 
 }

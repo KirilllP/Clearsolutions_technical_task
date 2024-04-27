@@ -26,23 +26,23 @@ public class UserDto {
 
     @NotNull(message = "Email is NULL")
     @Email(message = "This is not a valid email format")
-    String email;
+    private String email;
 
     @NotNull(message = "first name is NULL")
-    String firstName;
+    private String firstName;
 
     @NotNull(message = "last name is NULL")
-    String lastName;
+    private String lastName;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @NotNull(message = "birth date name is NULL")
     @Past(message = "birth date must be in the past")
     @OldEnough
-    LocalDate birthDate;
+    private LocalDate birthDate;
 
-    String address;
+    private String address;
 
-    String phoneNumber;
+    private String phoneNumber;
 
 }
